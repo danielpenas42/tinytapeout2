@@ -9,11 +9,6 @@
   * 
   * -
 */
-`include "helpers/hvsync_generator.v"
-`include "helpers/pengine.v"
-`include "helpers/decoder.v"
-`include "helpers/vga_display.v"
-
 `default_nettype none
 module tinytapeout (
     input  wire [7:0] ui_in,    // Dedicated inputs
@@ -42,18 +37,19 @@ module tinytapeout (
   assign uio_oe  = 8'b00000000;
 
 
-  assign R = 2'b00;
-  assign G = 2'b00;
-  assign B = 2'b00;
-
   wire cs   = uio_in[0];
   wire mosi = uio_in[1];
   wire sclk = uio_in[3];
   wire rst  = ~rst_n; // High reset
 
   wire       spi2m_val;
-  wire       spi2m_rdy = 1'b1;
+  wire       spi2m_rdy;
   wire [15:0] spi2m_data;
+  wire [9:0] cmd_data;
+  wire [1:0] cmd_type;
+  wire       cmd_valid;
+  wire [9:0] x_ball;
+  wire [9:0] y_ball;
 
   spiModule spi (
     .clk     (clk),
@@ -83,8 +79,6 @@ module tinytapeout (
     .in(spi2m_data),
     .val(spi2m_val),
     .rdy(spi2m_rdy),
-    .x_out(x_out),
-    .y_out(y_out),
     .cmd_valid(cmd_valid),
     .cmd_type(cmd_type),
     .cmd_data(cmd_data)
@@ -101,17 +95,17 @@ module tinytapeout (
   );
 
   vga_display ball_renderer(
-    .display_on(display_on),
+    .display_on(video_active),
     .x_ball(x_ball),
     .y_ball(y_ball),
-    .hpos(hpos),
-    .vpos(vpos),
+    .hpos(pix_x),
+    .vpos(pix_y),
     .R(R),
     .G(G),
     .B(B)
   );
 
 
-  wire _unused = &{ena, ui_in, video_active, pix_x, pix_y, spi2m_val, spi2m_data};
+  wire _unused = &{ena, ui_in};
 
 endmodule
