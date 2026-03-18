@@ -1,0 +1,9 @@
+{"vcs1":{"timestamp_begin":1773289588.720631470, "rt":0.28, "ut":0.11, "st":0.06}}
+{"vcselab":{"timestamp_begin":1773289589.051153600, "rt":0.23, "ut":0.12, "st":0.05}}
+{"link":{"timestamp_begin":1773289589.328346507, "rt":0.17, "ut":0.10, "st":0.03}}
+{"SNPS_VCS_INTERNAL_ROOT_START_TIME": 1773289588.441613121}
+{"VCS_COMP_START_TIME": 1773289588.441613121}
+{"VCS_COMP_END_TIME": 1773289589.621316989}
+{"VCS_USER_OPTIONS": "-sverilog -full64 -debug_access+all -timescale=1ns/1ps /home/dp665/tinytapeout/tinytapeout/src/spi/spiModule.v /home/dp665/tinytapeout/tinytapeout/src/tinytapeout.v /home/dp665/tinytapeout/tinytapeout/test/utils/test_utils.sv /home/dp665/tinytapeout/tinytapeout/test/spiModule_test.sv -top spiModule_test -o /home/dp665/tinytapeout/tinytapeout/test/build/simv_spiModule_test +incdir+/home/dp665/tinytapeout/tinytapeout +incdir+/home/dp665/tinytapeout/tinytapeout/src +incdir+/home/dp665/tinytapeout/tinytapeout/test +incdir+/home/dp665/tinytapeout/tinytapeout/test/utils +define+GEN_WAVES=True"}
+{"vcs1": {"peak_mem": 394580}}
+{"vcselab": {"peak_mem": 252536}}
