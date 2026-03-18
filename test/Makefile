@@ -3,8 +3,8 @@
 SIM ?= vcs
 YOSYS ?= yosys
 
-BUILD_DIR    := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
-TEST_DIR      := $(abspath $(BUILD_DIR)/..)
+TEST_DIR     := $(abspath $(dir $(lastword $(MAKEFILE_LIST))))
+BUILD_DIR    := $(TEST_DIR)/build
 PROJECT_ROOT := $(abspath $(TEST_DIR)/..)
 RUN_VCS      := $(TEST_DIR)/utils/run_vcs.mk
 
@@ -28,7 +28,7 @@ COMPILE_ARGS += +define+GEN_WAVES=$(GEN_WAVES)
 .PHONY: %_test estimate estimate-% help list-tests clean
 
 %_test:
-	@mkdir -p $(if $(filter True,$(GEN_WAVES)),$(WAVE_DIR))
+	@mkdir -p $(BUILD_DIR) $(if $(filter True,$(GEN_WAVES)),$(WAVE_DIR))
 	$(MAKE) -f $(RUN_VCS) compile \
 		TOP=$@ \
 		TEST_DIR=$(TEST_DIR) \
@@ -49,13 +49,4 @@ estimate-%:
 
 
 clean:
-	rm -rf \
-		$(BUILD_DIR)/simv* \
-		$(BUILD_DIR)/csrc \
-		$(BUILD_DIR)/*.daidir \
-		$(BUILD_DIR)/*.vcd \
-		$(BUILD_DIR)/*.ucdb \
-		$(WAVE_DIR) \
-		$(BUILD_DIR)/ucli.key \
-		$(BUILD_DIR)/cm.log \
-		$(BUILD_DIR)/.fsm.sch.verilog.xml
+	rm -rf $(BUILD_DIR)
